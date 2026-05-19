@@ -20,6 +20,12 @@ while IFS= read -r f; do
     JSON_FILES+=("$f")
 done < <(find "$DIR/$PROJECT_NAME/Data" -name "*.json" -not -path "*/.omc/*" | sort)
 
+# Collect asset catalogs
+XCASSET_FILES=()
+while IFS= read -r f; do
+    XCASSET_FILES+=("$f")
+done < <(find "$DIR/$PROJECT_NAME" -name "*.xcassets" -type d -prune | sort)
+
 # Collect generated image assets
 IMAGE_FILES=()
 while IFS= read -r f; do
@@ -82,6 +88,20 @@ for f in "${JSON_FILES[@]}"; do
     bid=$(gen_id "buildfile_$rel")
     FILE_REFS+="
         $fid = {isa = PBXFileReference; lastKnownFileType = text.json; path = \"$rel\"; sourceTree = \"<group>\"; };
+"
+    BUILD_FILE_REFS+="
+        $bid = {isa = PBXBuildFile; fileRef = $fid; };
+"
+    RESOURCE_BUILD_FILES+="$bid, "
+    CHILDREN_REFS+="$fid, "
+done
+
+for f in "${XCASSET_FILES[@]}"; do
+    rel="${f#$DIR/$PROJECT_NAME/}"
+    fid=$(gen_id "fileref_$rel")
+    bid=$(gen_id "buildfile_$rel")
+    FILE_REFS+="
+        $fid = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = \"$rel\"; sourceTree = \"<group>\"; };
 "
     BUILD_FILE_REFS+="
         $bid = {isa = PBXBuildFile; fileRef = $fid; };
