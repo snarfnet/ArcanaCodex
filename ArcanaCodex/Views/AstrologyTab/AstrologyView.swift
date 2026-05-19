@@ -20,6 +20,12 @@ struct AstrologyView: View {
 
                     ScrollView {
                         LazyVStack(spacing: 12) {
+                            ChapterBanner(
+                                title: selectedTab == 0 ? "十二星座" : "惑星",
+                                subtitle: "天体対応から大アルカナの意味をたどる。",
+                                icon: selectedTab == 0 ? "moon.stars" : "circle.hexagongrid"
+                            )
+
                             if selectedTab == 0 {
                                 zodiacSection
                             } else {
@@ -55,7 +61,7 @@ struct AstrologyView: View {
                                 Text(arcana.emoji)
                                 Text("\(arcana.number). \(arcana.nameJa)")
                                     .font(.subheadline)
-                                    .foregroundStyle(Color(hex: AppDesign.cyan))
+                                    .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
                             }
                             Text(arcana.nameEn)
                                 .font(.caption)
@@ -98,7 +104,7 @@ struct AstrologyView: View {
                             Text(arcana.emoji)
                             Text("\(arcana.number). \(arcana.nameJa)")
                                 .font(.subheadline)
-                                .foregroundStyle(Color(hex: AppDesign.cyan))
+                                .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
                             Text(arcana.nameEn)
                                 .font(.caption)
                                 .foregroundStyle(Color(hex: AppDesign.textSecondary))

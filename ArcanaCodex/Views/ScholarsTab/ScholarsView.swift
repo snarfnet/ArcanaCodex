@@ -25,11 +25,13 @@ struct ScholarsView: View {
                     .pickerStyle(.segmented)
                     .padding()
 
-                    // Book title
-                    Text(scholars[selectedScholar].1)
-                        .font(.caption.italic())
-                        .foregroundStyle(Color(hex: AppDesign.gold))
-                        .padding(.bottom, 8)
+                    ChapterBanner(
+                        title: scholars[selectedScholar].0,
+                        subtitle: scholars[selectedScholar].1,
+                        icon: "book.closed"
+                    )
+                    .padding(.horizontal)
+                    .padding(.bottom, 8)
 
                     ScrollView {
                         LazyVStack(spacing: 12) {
@@ -41,7 +43,7 @@ struct ScholarsView: View {
                     }
                 }
             }
-            .navigationTitle("古書の叡智")
+            .navigationTitle("巨匠の解釈")
             .toolbarColorScheme(.dark, for: .navigationBar)
         }
     }
@@ -81,7 +83,7 @@ struct ScholarsView: View {
                         .foregroundStyle(Color(hex: AppDesign.textPrimary).opacity(0.85))
                         .lineSpacing(4)
                 } else {
-                    Text("この象徴に対する解釈は収録されていません")
+                    Text("このカードに対する解釈は収録されていません。")
                         .font(.body)
                         .foregroundStyle(Color(hex: AppDesign.textSecondary))
                 }
@@ -89,7 +91,7 @@ struct ScholarsView: View {
                 // Quote
                 if !symbol.historicalQuote.isEmpty {
                     Divider().overlay(Color(hex: AppDesign.cyan).opacity(0.3))
-                    Text(""\(symbol.historicalQuote)"")
+                    Text("\"\(symbol.historicalQuote)\"")
                         .font(.caption.italic())
                         .foregroundStyle(Color(hex: AppDesign.goldLight))
                     Text("— \(symbol.quoteSource)")

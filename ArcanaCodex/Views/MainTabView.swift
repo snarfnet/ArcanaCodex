@@ -17,12 +17,12 @@ struct MainTabView: View {
 
             ScholarsView(vm: vm)
                 .tabItem {
-                    Label("古書", systemImage: "books.vertical")
+                    Label("巨匠", systemImage: "books.vertical")
                 }
 
             ElementsView(vm: vm)
                 .tabItem {
-                    Label("四元素", systemImage: "flame")
+                    Label("元素", systemImage: "flame")
                 }
 
             AstrologyView(vm: vm)
@@ -30,6 +30,6 @@ struct MainTabView: View {
                     Label("天体", systemImage: "moon.stars")
                 }
         }
-        .tint(Color(hex: AppDesign.cyan))
+        .tint(Color(hex: AppDesign.antiqueGoldLight))
     }
 }

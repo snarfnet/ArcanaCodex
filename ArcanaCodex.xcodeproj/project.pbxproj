@@ -29,6 +29,10 @@
 
         FED7D6EE72AEE1B15C56918B = {isa = PBXFileReference; lastKnownFileType = text.json; path = "Data/arcana_symbols.json"; sourceTree = "<group>"; };
 
+        DF55651A96CD0DA6DDD570C8 = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Assets/codex-atelier.png"; sourceTree = "<group>"; };
+
+        173AADD08D5428782FE87FB6 = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Assets/tarot-ornament.png"; sourceTree = "<group>"; };
+
         
         C29EC98717D88AFEFC77B0A6 = {isa = PBXBuildFile; fileRef = 97D3E7012E9C14828F089713; };
 
@@ -54,6 +58,10 @@
 
         847C213467E2876FAA1AB404 = {isa = PBXBuildFile; fileRef = FED7D6EE72AEE1B15C56918B; };
 
+        20F6D945DA8910F42A6EC929 = {isa = PBXBuildFile; fileRef = DF55651A96CD0DA6DDD570C8; };
+
+        AE8F2613FC3232E095E94558 = {isa = PBXBuildFile; fileRef = 173AADD08D5428782FE87FB6; };
+
 
         AA0000000000000000000005 = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ArcanaCodex.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 
@@ -64,7 +72,7 @@
         };
         AA0000000000000000000002 = {
             isa = PBXGroup;
-            children = (97D3E7012E9C14828F089713, 46E87B88CE27D65635EF69B3, 05C92EC93E42ABC2FBFEF60C, B6DFE7EC12B61BAFD12CE393, 752842FA35560F5CFDD9EEA0, 9C33FB8C3FAF745E4BAA59FF, 9EFBDBD520F1AEA3FB641A51, DDDCA7C71B2FC32C3D2E33D2, 01D95C8C3CEA70CC434B88EB, FAEA69C43A5F213081C35ADF, 58BEB79A62297FB9EEBBC97D, FED7D6EE72AEE1B15C56918B, );
+            children = (97D3E7012E9C14828F089713, 46E87B88CE27D65635EF69B3, 05C92EC93E42ABC2FBFEF60C, B6DFE7EC12B61BAFD12CE393, 752842FA35560F5CFDD9EEA0, 9C33FB8C3FAF745E4BAA59FF, 9EFBDBD520F1AEA3FB641A51, DDDCA7C71B2FC32C3D2E33D2, 01D95C8C3CEA70CC434B88EB, FAEA69C43A5F213081C35ADF, 58BEB79A62297FB9EEBBC97D, FED7D6EE72AEE1B15C56918B, DF55651A96CD0DA6DDD570C8, 173AADD08D5428782FE87FB6, );
             path = "ArcanaCodex";
             sourceTree = "<group>";
         };
@@ -84,7 +92,7 @@
         AA000000000000000000000E = {
             isa = PBXResourcesBuildPhase;
             buildActionMask = 2147483647;
-            files = (847C213467E2876FAA1AB404, );
+            files = (847C213467E2876FAA1AB404, 20F6D945DA8910F42A6EC929, AE8F2613FC3232E095E94558, );
             runOnlyForDeploymentPostprocessing = 0;
         };
         AA000000000000000000000F = {
@@ -160,7 +168,7 @@
                 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
                 CODE_SIGN_STYLE = Automatic;
                 CURRENT_PROJECT_VERSION = 1;
-                DEVELOPMENT_TEAM = F94CD83YLR;
+                DEVELOPMENT_TEAM = 83VGKGSQUH;
                 GENERATE_INFOPLIST_FILE = YES;
                 INFOPLIST_KEY_CFBundleDisplayName = "Arcana Codex";
                 INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -186,7 +194,7 @@
                 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
                 CODE_SIGN_STYLE = Automatic;
                 CURRENT_PROJECT_VERSION = 1;
-                DEVELOPMENT_TEAM = F94CD83YLR;
+                DEVELOPMENT_TEAM = 83VGKGSQUH;
                 GENERATE_INFOPLIST_FILE = YES;
                 INFOPLIST_KEY_CFBundleDisplayName = "Arcana Codex";
                 INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

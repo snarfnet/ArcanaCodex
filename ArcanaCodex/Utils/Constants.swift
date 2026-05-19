@@ -1,66 +1,75 @@
 import SwiftUI
 
 enum AppDesign {
-    // Celestial palette — Enochian Keys style
-    static let backgroundDark     = "#030112"
-    static let backgroundCard     = "#0A0824"
-    static let backgroundElevated = "#12103A"
+    static let backgroundDark = "#090B08"
+    static let backgroundCard = "#15130D"
+    static let backgroundElevated = "#211D14"
 
-    static let nebulaDeep   = "#080430"
-    static let nebulaMid    = "#160E50"
-    static let nebulaRim    = "#2B1B7E"
+    static let ink = "#070806"
+    static let obsidian = "#0D100C"
+    static let verdigris = "#1E5A4E"
+    static let verdigrisLight = "#3E8B75"
+    static let burgundy = "#6E2830"
+    static let parchment = "#E8D6A8"
+    static let parchmentDim = "#A99563"
+    static let antiqueGold = "#C8A653"
+    static let antiqueGoldLight = "#E4C76A"
+    static let antiqueGoldDark = "#6C5522"
 
-    // Cyan-dominant accents (Enochian Keys vibe)
-    static let cyan         = "#4DD9E8"
-    static let cyanBright   = "#7AEEF8"
-    static let cyanDim      = "#1A6A72"
+    static let cyan = verdigrisLight
+    static let cyanBright = "#72BDA7"
+    static let cyanDim = "#173D36"
+    static let violet = burgundy
+    static let violetDeep = "#3F151D"
+    static let rose = "#A44C58"
+    static let gold = antiqueGold
+    static let goldLight = antiqueGoldLight
+    static let goldDim = antiqueGoldDark
 
-    static let violet       = "#8B5CF6"
-    static let violetDeep   = "#5B21B6"
-    static let rose         = "#E879A8"
-    static let starWhite    = "#EEF0FF"
-
-    // Gold accents for headings
-    static let gold         = "#C9A84C"
-    static let goldLight    = "#E8C96A"
-    static let goldDim      = "#7A6128"
-
-    static let textPrimary   = "#EEF0FF"
-    static let textSecondary = "#8B8AAA"
+    static let textPrimary = "#F4E9C7"
+    static let textSecondary = "#B8A77A"
 
     static var cyanGradient: LinearGradient {
         LinearGradient(
-            colors: [Color(hex: cyanDim), Color(hex: cyan), Color(hex: cyanBright), Color(hex: cyan)],
-            startPoint: .leading, endPoint: .trailing
+            colors: [Color(hex: antiqueGoldDark), Color(hex: antiqueGold), Color(hex: antiqueGoldLight)],
+            startPoint: .leading,
+            endPoint: .trailing
         )
     }
 
     static var cosmicBackground: LinearGradient {
         LinearGradient(
             colors: [
-                Color(hex: backgroundDark),
-                Color(hex: "060328"),
-                Color(hex: "0D0940"),
-                Color(hex: backgroundDark)
+                Color(hex: ink),
+                Color(hex: obsidian),
+                Color(hex: "#11170F"),
+                Color(hex: ink)
             ],
-            startPoint: .topLeading, endPoint: .bottomTrailing
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
         )
     }
 
     static var cardGlassBackground: LinearGradient {
         LinearGradient(
             colors: [
-                Color(hex: nebulaMid).opacity(0.6),
-                Color(hex: backgroundCard).opacity(0.85)
+                Color(hex: backgroundElevated).opacity(0.88),
+                Color(hex: backgroundCard).opacity(0.96)
             ],
-            startPoint: .topLeading, endPoint: .bottomTrailing
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
         )
     }
 
     static var nebulaGradient: LinearGradient {
         LinearGradient(
-            colors: [Color(hex: violet).opacity(0.3), Color(hex: cyan).opacity(0.15), .clear],
-            startPoint: .topLeading, endPoint: .bottomTrailing
+            colors: [
+                Color(hex: verdigris).opacity(0.20),
+                Color(hex: burgundy).opacity(0.10),
+                .clear
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
         )
     }
 }

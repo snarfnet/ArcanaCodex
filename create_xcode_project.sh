@@ -20,12 +20,22 @@ while IFS= read -r f; do
     JSON_FILES+=("$f")
 done < <(find "$DIR/$PROJECT_NAME/Data" -name "*.json" -not -path "*/.omc/*" | sort)
 
+# Collect generated image assets
+IMAGE_FILES=()
+while IFS= read -r f; do
+    IMAGE_FILES+=("$f")
+done < <(find "$DIR/$PROJECT_NAME/Assets" \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) 2>/dev/null | sort)
+
 # Generate unique IDs
 gen_id() {
     local input="$1"
-    echo -n "$input" | md5sum 2>/dev/null | cut -c1-24 | tr 'a-f' 'A-F' || \
-    echo -n "$input" | md5 2>/dev/null | cut -c1-24 | tr 'a-f' 'A-F' || \
-    python3 -c "import hashlib; print(hashlib.md5('$input'.encode()).hexdigest()[:24].upper())"
+    if command -v md5sum >/dev/null 2>&1; then
+        echo -n "$input" | md5sum | cut -c1-24 | tr 'a-f' 'A-F'
+    elif command -v md5 >/dev/null 2>&1; then
+        echo -n "$input" | md5 | cut -c1-24 | tr 'a-f' 'A-F'
+    else
+        python3 -c "import hashlib; print(hashlib.md5('$input'.encode()).hexdigest()[:24].upper())"
+    fi
 }
 
 # Fixed IDs
@@ -72,6 +82,21 @@ for f in "${JSON_FILES[@]}"; do
     bid=$(gen_id "buildfile_$rel")
     FILE_REFS+="
         $fid = {isa = PBXFileReference; lastKnownFileType = text.json; path = \"$rel\"; sourceTree = \"<group>\"; };
+"
+    BUILD_FILE_REFS+="
+        $bid = {isa = PBXBuildFile; fileRef = $fid; };
+"
+    RESOURCE_BUILD_FILES+="$bid, "
+    CHILDREN_REFS+="$fid, "
+done
+
+for f in "${IMAGE_FILES[@]}"; do
+    rel="${f#$DIR/$PROJECT_NAME/}"
+    ext="${rel##*.}"
+    fid=$(gen_id "fileref_$rel")
+    bid=$(gen_id "buildfile_$rel")
+    FILE_REFS+="
+        $fid = {isa = PBXFileReference; lastKnownFileType = image.$ext; path = \"$rel\"; sourceTree = \"<group>\"; };
 "
     BUILD_FILE_REFS+="
         $bid = {isa = PBXBuildFile; fileRef = $fid; };
@@ -195,7 +220,7 @@ cat > "$PROJ_DIR/project.pbxproj" << PBXEOF
                 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
                 CODE_SIGN_STYLE = Automatic;
                 CURRENT_PROJECT_VERSION = 1;
-                DEVELOPMENT_TEAM = F94CD83YLR;
+                DEVELOPMENT_TEAM = 83VGKGSQUH;
                 GENERATE_INFOPLIST_FILE = YES;
                 INFOPLIST_KEY_CFBundleDisplayName = "Arcana Codex";
                 INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -221,7 +246,7 @@ cat > "$PROJ_DIR/project.pbxproj" << PBXEOF
                 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
                 CODE_SIGN_STYLE = Automatic;
                 CURRENT_PROJECT_VERSION = 1;
-                DEVELOPMENT_TEAM = F94CD83YLR;
+                DEVELOPMENT_TEAM = 83VGKGSQUH;
                 GENERATE_INFOPLIST_FILE = YES;
                 INFOPLIST_KEY_CFBundleDisplayName = "Arcana Codex";
                 INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

@@ -11,16 +11,19 @@ struct SymbolsListView: View {
 
                 ScrollView {
                     LazyVStack(spacing: 12) {
-                        ForEach(vm.majorArcana) { symbol in
+                        MasterHero()
+                            .padding(.bottom, 8)
+
+                        ForEach(vm.filteredSymbols.filter { $0.isMajor }.sorted { $0.number < $1.number }) { symbol in
                             SymbolRow(symbol: symbol)
                                 .onTapGesture { selectedSymbol = symbol }
                         }
                     }
                     .padding()
-                    .searchable(text: $vm.searchText, prompt: "象徴を検索...")
+                    .searchable(text: $vm.searchText, prompt: "カード、天体、元素を検索")
                 }
             }
-            .navigationTitle("大アルカナ象徴辞典")
+            .navigationTitle("Arcana Codex")
             .toolbarColorScheme(.dark, for: .navigationBar)
             .sheet(item: $selectedSymbol) { symbol in
                 SymbolDetailView(symbol: symbol)
@@ -35,17 +38,16 @@ struct SymbolRow: View {
     var body: some View {
         CosmicCard {
             HStack(spacing: 14) {
-                // Number circle
                 ZStack {
                     Circle()
-                        .fill(Color(hex: AppDesign.cyan).opacity(0.15))
-                        .frame(width: 50, height: 50)
+                        .fill(Color(hex: AppDesign.ink).opacity(0.62))
+                        .frame(width: 54, height: 54)
                     Circle()
-                        .stroke(Color(hex: AppDesign.cyan).opacity(0.4), lineWidth: 1)
-                        .frame(width: 50, height: 50)
+                        .stroke(Color(hex: AppDesign.antiqueGold).opacity(0.52), lineWidth: 1)
+                        .frame(width: 54, height: 54)
                     Text("\(symbol.number)")
                         .font(.title2.bold())
-                        .foregroundStyle(Color(hex: AppDesign.cyan))
+                        .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
                 }
 
                 VStack(alignment: .leading, spacing: 4) {
@@ -66,10 +68,10 @@ struct SymbolRow: View {
                         if let planet = symbol.planet {
                             Text(planet)
                                 .font(.caption2)
-                                .foregroundStyle(Color(hex: AppDesign.violet))
+                                .foregroundStyle(Color(hex: AppDesign.rose))
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 3)
-                                .background(Color(hex: AppDesign.violet).opacity(0.15))
+                                .background(Color(hex: AppDesign.rose).opacity(0.15))
                                 .clipShape(Capsule())
                         }
                     }
@@ -78,7 +80,10 @@ struct SymbolRow: View {
                 Spacer()
 
                 Text(symbol.emoji)
-                    .font(.title)
+                    .font(.title2)
+                    .frame(width: 42, height: 54)
+                    .background(Color(hex: AppDesign.backgroundDark).opacity(0.42))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
             }
         }
     }
@@ -139,11 +144,11 @@ struct SymbolDetailView: View {
                 Text(symbol.emoji)
                     .font(.system(size: 60))
                 Text(symbol.nameJa)
-                    .font(.largeTitle.bold())
+                    .font(.largeTitle.weight(.bold))
                     .foregroundStyle(Color(hex: AppDesign.textPrimary))
                 Text("\(symbol.number) — \(symbol.nameEn)")
                     .font(.title3)
-                    .foregroundStyle(Color(hex: AppDesign.cyan))
+                    .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
             }
             .frame(maxWidth: .infinity)
         }
@@ -185,7 +190,7 @@ struct SymbolDetailView: View {
         }
         .padding(8)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(hex: AppDesign.backgroundDark).opacity(0.5))
+        .background(Color(hex: AppDesign.ink).opacity(0.48))
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 
@@ -208,12 +213,12 @@ struct SymbolDetailView: View {
                 HStack {
                     Text(from)
                         .font(.caption.bold())
-                        .foregroundStyle(Color(hex: AppDesign.cyanBright))
+                        .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
                     Image(systemName: "arrow.right")
                         .foregroundStyle(Color(hex: AppDesign.gold))
                     Text(to)
                         .font(.caption.bold())
-                        .foregroundStyle(Color(hex: AppDesign.cyanBright))
+                        .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
                 }
                 Text(path)
                     .font(.subheadline)
@@ -226,14 +231,14 @@ struct SymbolDetailView: View {
         CosmicCard {
             VStack(alignment: .leading, spacing: 10) {
                 SectionHeader(title: "象徴キーワード", icon: "tag")
-                HStack(spacing: 6) {
+                FlowLayout(spacing: 6) {
                     ForEach(symbol.uprightKeywords, id: \.self) { kw in
                         Text(kw)
                             .font(.caption.bold())
                             .padding(.horizontal, 10)
                             .padding(.vertical, 5)
-                            .background(Color(hex: AppDesign.cyan).opacity(0.15))
-                            .foregroundStyle(Color(hex: AppDesign.cyan))
+                            .background(Color(hex: AppDesign.verdigris).opacity(0.28))
+                            .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
                             .clipShape(Capsule())
                     }
                 }
@@ -258,7 +263,7 @@ struct SymbolDetailView: View {
     private var quoteSection: some View {
         CosmicCard {
             VStack(spacing: 8) {
-                Text(""\(symbol.historicalQuote)"")
+                Text("\"\(symbol.historicalQuote)\"")
                     .font(.body.italic())
                     .foregroundStyle(Color(hex: AppDesign.goldLight))
                     .multilineTextAlignment(.center)

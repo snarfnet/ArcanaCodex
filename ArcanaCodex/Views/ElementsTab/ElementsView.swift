@@ -20,22 +20,11 @@ struct ElementsView: View {
                     .pickerStyle(.segmented)
                     .padding()
 
-                    // Element info
-                    CosmicCard {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(selectedSuit.element)
-                                    .font(.title2.bold())
-                                    .foregroundStyle(Color(hex: AppDesign.textPrimary))
-                                Text(selectedSuit.nameJa)
-                                    .font(.subheadline)
-                                    .foregroundStyle(Color(hex: AppDesign.textSecondary))
-                            }
-                            Spacer()
-                            Text(selectedSuit.emoji)
-                                .font(.system(size: 50))
-                        }
-                    }
+                    ChapterBanner(
+                        title: selectedSuit.element,
+                        subtitle: "\(selectedSuit.nameJa)の数秘と小アルカナを読む。",
+                        icon: "flame"
+                    )
                     .padding(.horizontal)
                     .padding(.bottom, 8)
 
@@ -77,7 +66,7 @@ struct ElementsView: View {
                     if let meaning = selectedSuit.numerologyMeaning[symbol.number] {
                         Text("数秘: \(meaning)")
                             .font(.caption2)
-                            .foregroundStyle(Color(hex: AppDesign.gold))
+                            .foregroundStyle(Color(hex: AppDesign.goldLight))
                     }
                 }
 
@@ -88,7 +77,7 @@ struct ElementsView: View {
                     ForEach(symbol.uprightKeywords.prefix(2), id: \.self) { kw in
                         Text(kw)
                             .font(.caption2)
-                            .foregroundStyle(Color(hex: AppDesign.cyan))
+                            .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
                     }
                 }
             }
@@ -107,7 +96,7 @@ struct ElementsView: View {
                                 Text(symbol.nameJa).font(.title.bold())
                                     .foregroundStyle(Color(hex: AppDesign.textPrimary))
                                 Text(symbol.nameEn).font(.subheadline)
-                                    .foregroundStyle(Color(hex: AppDesign.cyan))
+                                    .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
                             }
                             .frame(maxWidth: .infinity)
                         }
@@ -131,8 +120,8 @@ struct ElementsView: View {
                                             .font(.caption.bold())
                                             .padding(.horizontal, 10)
                                             .padding(.vertical, 5)
-                                            .background(Color(hex: AppDesign.cyan).opacity(0.15))
-                                            .foregroundStyle(Color(hex: AppDesign.cyan))
+                                            .background(Color(hex: AppDesign.verdigris).opacity(0.28))
+                                            .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
                                             .clipShape(Capsule())
                                     }
                                 }

@@ -11,6 +11,13 @@ struct TreeOfLifeView: View {
 
                 ScrollView {
                     VStack(spacing: 20) {
+                        ChapterBanner(
+                            title: "生命の樹",
+                            subtitle: "22のパスを、大アルカナとヘブライ文字の対応で読む。",
+                            icon: "point.3.connected.trianglepath.dotted"
+                        )
+                        .padding(.horizontal)
+
                         // Interactive Tree
                         treeCanvas
                             .frame(height: 500)
@@ -57,7 +64,7 @@ struct TreeOfLifeView: View {
                                 p.move(to: from)
                                 p.addLine(to: to)
                             }
-                            .stroke(Color(hex: AppDesign.cyan).opacity(0.25), lineWidth: 1)
+                            .stroke(Color(hex: AppDesign.antiqueGold).opacity(0.30), lineWidth: 1)
                         }
                     }
                 }
@@ -68,14 +75,14 @@ struct TreeOfLifeView: View {
                     VStack(spacing: 2) {
                         ZStack {
                             Circle()
-                                .fill(Color(hex: AppDesign.violet).opacity(0.3))
+                                .fill(Color(hex: AppDesign.ink).opacity(0.76))
                                 .frame(width: 36, height: 36)
                             Circle()
-                                .stroke(Color(hex: AppDesign.cyan).opacity(0.6), lineWidth: 1.5)
+                                .stroke(Color(hex: AppDesign.antiqueGold).opacity(0.72), lineWidth: 1.5)
                                 .frame(width: 36, height: 36)
                             Text(seph.nameHe)
                                 .font(.system(size: 12))
-                                .foregroundStyle(Color(hex: AppDesign.cyanBright))
+                                .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
                         }
                         Text(seph.nameJa)
                             .font(.system(size: 9).bold())
@@ -99,7 +106,7 @@ struct TreeOfLifeView: View {
             HStack(spacing: 12) {
                 Text("\(symbol.number)")
                     .font(.caption.bold().monospaced())
-                    .foregroundStyle(Color(hex: AppDesign.cyan))
+                    .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
                     .frame(width: 24)
 
                 VStack(alignment: .leading, spacing: 3) {
@@ -109,13 +116,13 @@ struct TreeOfLifeView: View {
                     HStack(spacing: 4) {
                         Text(path)
                             .font(.caption)
-                            .foregroundStyle(Color(hex: AppDesign.gold))
+                            .foregroundStyle(Color(hex: AppDesign.goldLight))
                         Text("·")
                             .foregroundStyle(Color(hex: AppDesign.textSecondary))
                         if let hebrew = symbol.hebrewLetter {
                             Text(hebrew)
                                 .font(.caption)
-                                .foregroundStyle(Color(hex: AppDesign.cyan))
+                                .foregroundStyle(Color(hex: AppDesign.verdigrisLight))
                         }
                     }
                 }
