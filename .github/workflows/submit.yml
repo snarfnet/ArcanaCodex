@@ -1,0 +1,111 @@
+name: Submit to App Store Connect
+
+on:
+  workflow_dispatch:
+
+jobs:
+  submit:
+    runs-on: macos-15
+
+    env:
+      ASC_KEY_ID: WDXGY9WX55
+      ASC_ISSUER_ID: 2be0734f-943a-4d61-9dc9-5d9045c46fec
+      APPLE_TEAM_ID: 83VGKGSQUH
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: |
+          XCODE_PATH=$(ls -d /Applications/Xcode*.app | sort -V | tail -n 1)
+          sudo xcode-select -s "$XCODE_PATH"
+          xcodebuild -version
+
+      - name: Generate Xcode Project
+        run: chmod +x create_xcode_project.sh && bash create_xcode_project.sh
+
+      - name: Prepare App Store Connect API key
+        run: |
+          mkdir -p "$RUNNER_TEMP/private_keys"
+          printf '%s' '${{ secrets.ASC_API_KEY_CONTENT }}' > "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          chmod 600 "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+
+      - name: Setup signing certificate
+        run: |
+          KEYCHAIN_PATH="$RUNNER_TEMP/app-signing.keychain-db"
+          security create-keychain -p "${{ secrets.KEYCHAIN_PASSWORD }}" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "${{ secrets.KEYCHAIN_PASSWORD }}" "$KEYCHAIN_PATH"
+          printf '%s' '${{ secrets.DIST_CERT_BASE64 }}' | base64 --decode > "$RUNNER_TEMP/dist_cert.p12"
+          security import "$RUNNER_TEMP/dist_cert.p12" \
+            -P "${{ secrets.DIST_CERT_PASSWORD }}" \
+            -A \
+            -t cert \
+            -f pkcs12 \
+            -k "$KEYCHAIN_PATH"
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "${{ secrets.KEYCHAIN_PASSWORD }}" "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH" login.keychain-db
+
+      - name: Resolve packages
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project ArcanaCodex.xcodeproj \
+            -scheme ArcanaCodex
+
+      - name: Archive
+        run: |
+          xcodebuild archive \
+            -project ArcanaCodex.xcodeproj \
+            -scheme ArcanaCodex \
+            -archivePath "$RUNNER_TEMP/ArcanaCodex.xcarchive" \
+            -destination "generic/platform=iOS" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+            CODE_SIGN_STYLE=Automatic
+
+      - name: Export IPA
+        run: |
+          cat > "$RUNNER_TEMP/ExportOptions.plist" << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>app-store-connect</string>
+            <key>signingStyle</key>
+            <string>automatic</string>
+            <key>teamID</key>
+            <string>$APPLE_TEAM_ID</string>
+            <key>uploadSymbols</key>
+            <true/>
+          </dict>
+          </plist>
+          EOF
+
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/ArcanaCodex.xcarchive" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" \
+            -exportPath "$RUNNER_TEMP/export" \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8" \
+            -authenticationKeyID "$ASC_KEY_ID" \
+            -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+
+      - name: Upload IPA
+        run: |
+          mkdir -p "$HOME/.appstoreconnect/private_keys"
+          cp "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8" "$HOME/.appstoreconnect/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          xcrun altool --upload-app \
+            -f "$RUNNER_TEMP/export/ArcanaCodex.ipa" \
+            -t ios \
+            --apiKey "$ASC_KEY_ID" \
+            --apiIssuer "$ASC_ISSUER_ID"
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ArcanaCodex-ipa
+          path: ${{ runner.temp }}/export/ArcanaCodex.ipa
