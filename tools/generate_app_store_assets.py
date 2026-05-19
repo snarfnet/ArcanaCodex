@@ -114,7 +114,7 @@ def draw_phone_mockup(draw: ImageDraw.ImageDraw, x: int, y: int, w: int, h: int,
     muted = hex_to_rgba(COLORS["muted"], 255)
 
     if variant == 0:
-        draw.text((ix + 38, iy + 42), "Arcana Codex", font=title_font, fill=primary)
+        draw.text((ix + 38, iy + 42), "Arcana Library", font=title_font, fill=primary)
         draw.text((ix + 38, iy + 100), "巨匠の書斎で読む", font=body_font, fill=accent)
         hero_y = iy + 150
         rounded_rect(draw, (ix + 34, hero_y, ir - 34, hero_y + 220), 18, hex_to_rgba(COLORS["card2"], 240), hex_to_rgba(COLORS["gold2"], 120), 2)
@@ -184,7 +184,7 @@ def make_screenshot(size: tuple[int, int], name_prefix: str, index: int, title: 
     sub_font = font(FONT_REGULAR, round(w * (0.032 if w < 1600 else 0.024)))
     eyebrow_font = font(FONT_REGULAR, round(w * (0.022 if w < 1600 else 0.018)))
 
-    draw.text((margin, round(h * 0.065)), "ARCANA CODEX", font=eyebrow_font, fill=hex_to_rgba(COLORS["gold"], 255))
+    draw.text((margin, round(h * 0.065)), "ARCANA LIBRARY", font=eyebrow_font, fill=hex_to_rgba(COLORS["gold"], 255))
     end_y = draw_multiline(
         draw,
         (margin, round(h * 0.105)),

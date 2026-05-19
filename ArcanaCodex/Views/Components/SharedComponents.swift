@@ -134,7 +134,7 @@ struct MasterHero: View {
             )
 
             VStack(alignment: .leading, spacing: 9) {
-                Text("ARCANA CODEX")
+                Text("ARCANA LIBRARY")
                     .font(.caption.weight(.bold))
                     .tracking(2.4)
                     .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))

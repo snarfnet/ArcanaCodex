@@ -31,5 +31,8 @@ struct MainTabView: View {
                 }
         }
         .tint(Color(hex: AppDesign.antiqueGoldLight))
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            AdBannerView()
+        }
     }
 }

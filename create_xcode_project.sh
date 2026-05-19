@@ -60,6 +60,9 @@ BUILD_CONFIG_LIST_TARGET_ID="AA000000000000000000000C"
 SOURCES_PHASE_ID="AA000000000000000000000D"
 RESOURCES_PHASE_ID="AA000000000000000000000E"
 FRAMEWORKS_PHASE_ID="AA000000000000000000000F"
+GOOGLE_MOBILE_ADS_PACKAGE_ID="AA0000000000000000000010"
+GOOGLE_MOBILE_ADS_PRODUCT_ID="AA0000000000000000000011"
+GOOGLE_MOBILE_ADS_BUILD_ID="AA0000000000000000000012"
 
 # Build file references and build files
 FILE_REFS=""
@@ -135,6 +138,23 @@ cat > "$PROJ_DIR/project.pbxproj" << PBXEOF
         $FILE_REFS
         $BUILD_FILE_REFS
 
+        $GOOGLE_MOBILE_ADS_BUILD_ID = {isa = PBXBuildFile; productRef = $GOOGLE_MOBILE_ADS_PRODUCT_ID; };
+
+        $GOOGLE_MOBILE_ADS_PACKAGE_ID = {
+            isa = XCRemoteSwiftPackageReference;
+            repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+            requirement = {
+                kind = upToNextMajorVersion;
+                minimumVersion = 13.0.0;
+            };
+        };
+
+        $GOOGLE_MOBILE_ADS_PRODUCT_ID = {
+            isa = XCSwiftPackageProductDependency;
+            package = $GOOGLE_MOBILE_ADS_PACKAGE_ID;
+            productName = GoogleMobileAds;
+        };
+
         $PRODUCT_REF_ID = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "$PROJECT_NAME.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 
         $ROOT_GROUP_ID = {
@@ -170,7 +190,7 @@ cat > "$PROJ_DIR/project.pbxproj" << PBXEOF
         $FRAMEWORKS_PHASE_ID = {
             isa = PBXFrameworksBuildPhase;
             buildActionMask = 2147483647;
-            files = ();
+            files = ($GOOGLE_MOBILE_ADS_BUILD_ID);
             runOnlyForDeploymentPostprocessing = 0;
         };
 
@@ -181,6 +201,7 @@ cat > "$PROJ_DIR/project.pbxproj" << PBXEOF
             buildRules = ();
             dependencies = ();
             name = "$PROJECT_NAME";
+            packageProductDependencies = ($GOOGLE_MOBILE_ADS_PRODUCT_ID);
             productName = "$PROJECT_NAME";
             productReference = $PRODUCT_REF_ID;
             productType = "com.apple.product-type.application";
@@ -199,6 +220,7 @@ cat > "$PROJ_DIR/project.pbxproj" << PBXEOF
             hasScannedForEncodings = 0;
             knownRegions = (ja, en, Base);
             mainGroup = $ROOT_GROUP_ID;
+            packageReferences = ($GOOGLE_MOBILE_ADS_PACKAGE_ID);
             productRefGroup = $PRODUCTS_GROUP_ID;
             projectDirPath = "";
             projectRoot = "";
@@ -242,7 +264,8 @@ cat > "$PROJ_DIR/project.pbxproj" << PBXEOF
                 CURRENT_PROJECT_VERSION = 1;
                 DEVELOPMENT_TEAM = 83VGKGSQUH;
                 GENERATE_INFOPLIST_FILE = YES;
-                INFOPLIST_KEY_CFBundleDisplayName = "Arcana Codex";
+                INFOPLIST_KEY_GADApplicationIdentifier = "ca-app-pub-9404799280370656~4294167480";
+                INFOPLIST_KEY_CFBundleDisplayName = "Arcana Library";
                 INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
                 INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
                 INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -268,7 +291,8 @@ cat > "$PROJ_DIR/project.pbxproj" << PBXEOF
                 CURRENT_PROJECT_VERSION = 1;
                 DEVELOPMENT_TEAM = 83VGKGSQUH;
                 GENERATE_INFOPLIST_FILE = YES;
-                INFOPLIST_KEY_CFBundleDisplayName = "Arcana Codex";
+                INFOPLIST_KEY_GADApplicationIdentifier = "ca-app-pub-9404799280370656~4294167480";
+                INFOPLIST_KEY_CFBundleDisplayName = "Arcana Library";
                 INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
                 INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
                 INFOPLIST_KEY_UILaunchScreen_Generation = YES;

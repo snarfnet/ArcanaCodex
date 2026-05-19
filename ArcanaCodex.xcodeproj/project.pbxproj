@@ -15,6 +15,8 @@
 
         752842FA35560F5CFDD9EEA0 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views/AstrologyTab/AstrologyView.swift"; sourceTree = "<group>"; };
 
+        96C75DB818E62300477F6FFC = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views/Components/AdBannerView.swift"; sourceTree = "<group>"; };
+
         9C33FB8C3FAF745E4BAA59FF = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views/Components/SharedComponents.swift"; sourceTree = "<group>"; };
 
         9EFBDBD520F1AEA3FB641A51 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Views/ElementsTab/ElementsView.swift"; sourceTree = "<group>"; };
@@ -46,6 +48,8 @@
 
         25567D4425A2BE2984E6CDC7 = {isa = PBXBuildFile; fileRef = 752842FA35560F5CFDD9EEA0; };
 
+        BA8A82D6A7922B1D1D64AFCF = {isa = PBXBuildFile; fileRef = 96C75DB818E62300477F6FFC; };
+
         2CB5F9A5F758B157A168C3B4 = {isa = PBXBuildFile; fileRef = 9C33FB8C3FAF745E4BAA59FF; };
 
         C1D338B2E42868371FC6F7BF = {isa = PBXBuildFile; fileRef = 9EFBDBD520F1AEA3FB641A51; };
@@ -67,6 +71,23 @@
         AE8F2613FC3232E095E94558 = {isa = PBXBuildFile; fileRef = 173AADD08D5428782FE87FB6; };
 
 
+        AA0000000000000000000012 = {isa = PBXBuildFile; productRef = AA0000000000000000000011; };
+
+        AA0000000000000000000010 = {
+            isa = XCRemoteSwiftPackageReference;
+            repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+            requirement = {
+                kind = upToNextMajorVersion;
+                minimumVersion = 13.0.0;
+            };
+        };
+
+        AA0000000000000000000011 = {
+            isa = XCSwiftPackageProductDependency;
+            package = AA0000000000000000000010;
+            productName = GoogleMobileAds;
+        };
+
         AA0000000000000000000005 = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ArcanaCodex.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 
         AA0000000000000000000001 = {
@@ -76,7 +97,7 @@
         };
         AA0000000000000000000002 = {
             isa = PBXGroup;
-            children = (97D3E7012E9C14828F089713, 46E87B88CE27D65635EF69B3, 05C92EC93E42ABC2FBFEF60C, B6DFE7EC12B61BAFD12CE393, 752842FA35560F5CFDD9EEA0, 9C33FB8C3FAF745E4BAA59FF, 9EFBDBD520F1AEA3FB641A51, DDDCA7C71B2FC32C3D2E33D2, 01D95C8C3CEA70CC434B88EB, FAEA69C43A5F213081C35ADF, 58BEB79A62297FB9EEBBC97D, FED7D6EE72AEE1B15C56918B, CC3340C45202B29152467289, DF55651A96CD0DA6DDD570C8, 173AADD08D5428782FE87FB6, );
+            children = (97D3E7012E9C14828F089713, 46E87B88CE27D65635EF69B3, 05C92EC93E42ABC2FBFEF60C, B6DFE7EC12B61BAFD12CE393, 752842FA35560F5CFDD9EEA0, 96C75DB818E62300477F6FFC, 9C33FB8C3FAF745E4BAA59FF, 9EFBDBD520F1AEA3FB641A51, DDDCA7C71B2FC32C3D2E33D2, 01D95C8C3CEA70CC434B88EB, FAEA69C43A5F213081C35ADF, 58BEB79A62297FB9EEBBC97D, FED7D6EE72AEE1B15C56918B, CC3340C45202B29152467289, DF55651A96CD0DA6DDD570C8, 173AADD08D5428782FE87FB6, );
             path = "ArcanaCodex";
             sourceTree = "<group>";
         };
@@ -90,7 +111,7 @@
         AA000000000000000000000D = {
             isa = PBXSourcesBuildPhase;
             buildActionMask = 2147483647;
-            files = (C29EC98717D88AFEFC77B0A6, B75E1B9BE42ECEF1277B9025, CC32298B49322D08546AA306, C46D9B12D51CE626D8FBEBB3, 25567D4425A2BE2984E6CDC7, 2CB5F9A5F758B157A168C3B4, C1D338B2E42868371FC6F7BF, BF4F93DE09253E18B8AF6143, 318C3EB30C3326307077F1F4, BB32F5299AB8D0D0BEC79970, 1AB9E9AB8003883B6B7B4235, );
+            files = (C29EC98717D88AFEFC77B0A6, B75E1B9BE42ECEF1277B9025, CC32298B49322D08546AA306, C46D9B12D51CE626D8FBEBB3, 25567D4425A2BE2984E6CDC7, BA8A82D6A7922B1D1D64AFCF, 2CB5F9A5F758B157A168C3B4, C1D338B2E42868371FC6F7BF, BF4F93DE09253E18B8AF6143, 318C3EB30C3326307077F1F4, BB32F5299AB8D0D0BEC79970, 1AB9E9AB8003883B6B7B4235, );
             runOnlyForDeploymentPostprocessing = 0;
         };
         AA000000000000000000000E = {
@@ -102,7 +123,7 @@
         AA000000000000000000000F = {
             isa = PBXFrameworksBuildPhase;
             buildActionMask = 2147483647;
-            files = ();
+            files = (AA0000000000000000000012);
             runOnlyForDeploymentPostprocessing = 0;
         };
 
@@ -113,6 +134,7 @@
             buildRules = ();
             dependencies = ();
             name = "ArcanaCodex";
+            packageProductDependencies = (AA0000000000000000000011);
             productName = "ArcanaCodex";
             productReference = AA0000000000000000000005;
             productType = "com.apple.product-type.application";
@@ -131,6 +153,7 @@
             hasScannedForEncodings = 0;
             knownRegions = (ja, en, Base);
             mainGroup = AA0000000000000000000001;
+            packageReferences = (AA0000000000000000000010);
             productRefGroup = AA0000000000000000000003;
             projectDirPath = "";
             projectRoot = "";
@@ -174,7 +197,8 @@
                 CURRENT_PROJECT_VERSION = 1;
                 DEVELOPMENT_TEAM = 83VGKGSQUH;
                 GENERATE_INFOPLIST_FILE = YES;
-                INFOPLIST_KEY_CFBundleDisplayName = "Arcana Codex";
+                INFOPLIST_KEY_GADApplicationIdentifier = "ca-app-pub-9404799280370656~4294167480";
+                INFOPLIST_KEY_CFBundleDisplayName = "Arcana Library";
                 INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
                 INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
                 INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -200,7 +224,8 @@
                 CURRENT_PROJECT_VERSION = 1;
                 DEVELOPMENT_TEAM = 83VGKGSQUH;
                 GENERATE_INFOPLIST_FILE = YES;
-                INFOPLIST_KEY_CFBundleDisplayName = "Arcana Codex";
+                INFOPLIST_KEY_GADApplicationIdentifier = "ca-app-pub-9404799280370656~4294167480";
+                INFOPLIST_KEY_CFBundleDisplayName = "Arcana Library";
                 INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
                 INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
                 INFOPLIST_KEY_UILaunchScreen_Generation = YES;

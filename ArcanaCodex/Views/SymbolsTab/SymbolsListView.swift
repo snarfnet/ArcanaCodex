@@ -23,7 +23,7 @@ struct SymbolsListView: View {
                     .searchable(text: $vm.searchText, prompt: "カード、天体、元素を検索")
                 }
             }
-            .navigationTitle("Arcana Codex")
+            .navigationTitle("Arcana Library")
             .toolbarColorScheme(.dark, for: .navigationBar)
             .sheet(item: $selectedSymbol) { symbol in
                 SymbolDetailView(symbol: symbol)
