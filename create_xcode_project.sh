@@ -261,7 +261,7 @@ cat > "$PROJ_DIR/project.pbxproj" << PBXEOF
             buildSettings = {
                 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
                 CODE_SIGN_STYLE = Automatic;
-                CURRENT_PROJECT_VERSION = 1;
+                CURRENT_PROJECT_VERSION = 2;
                 DEVELOPMENT_TEAM = 83VGKGSQUH;
                 GENERATE_INFOPLIST_FILE = YES;
                 INFOPLIST_KEY_GADApplicationIdentifier = "ca-app-pub-9404799280370656~4294167480";
@@ -288,7 +288,7 @@ cat > "$PROJ_DIR/project.pbxproj" << PBXEOF
             buildSettings = {
                 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
                 CODE_SIGN_STYLE = Automatic;
-                CURRENT_PROJECT_VERSION = 1;
+                CURRENT_PROJECT_VERSION = 2;
                 DEVELOPMENT_TEAM = 83VGKGSQUH;
                 GENERATE_INFOPLIST_FILE = YES;
                 INFOPLIST_KEY_GADApplicationIdentifier = "ca-app-pub-9404799280370656~4294167480";

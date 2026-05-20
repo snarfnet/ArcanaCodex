@@ -8,17 +8,19 @@ private enum AdMobConfig {
 
 struct AdBannerView: View {
     var body: some View {
-        GeometryReader { geometry in
-            BannerContainer(width: geometry.size.width)
-                .frame(width: geometry.size.width, height: 60)
-                .frame(maxWidth: .infinity)
-        }
-        .frame(height: 60)
-        .background(Color(hex: AppDesign.ink).opacity(0.94))
-        .overlay(alignment: .top) {
-            Rectangle()
-                .fill(Color(hex: AppDesign.antiqueGold).opacity(0.18))
-                .frame(height: 1)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            GeometryReader { geometry in
+                BannerContainer(width: geometry.size.width)
+                    .frame(width: geometry.size.width, height: 60)
+                    .frame(maxWidth: .infinity)
+            }
+            .frame(height: 60)
+            .background(Color(hex: AppDesign.ink).opacity(0.94))
+            .overlay(alignment: .top) {
+                Rectangle()
+                    .fill(Color(hex: AppDesign.antiqueGold).opacity(0.18))
+                    .frame(height: 1)
+            }
         }
     }
 }

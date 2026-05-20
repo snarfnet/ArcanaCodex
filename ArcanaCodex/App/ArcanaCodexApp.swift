@@ -6,10 +6,8 @@ class ArcanaCodexAppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            DispatchQueue.main.async {
-                MobileAds.shared.start()
-            }
+        DispatchQueue.main.async {
+            MobileAds.shared.start()
         }
         return true
     }
