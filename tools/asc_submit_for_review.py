@@ -56,6 +56,22 @@ def find_version(app_id):
 
 def submit(version_id):
     app_id = find_app()
+    existing = find_unresolved_submission(app_id)
+    if existing:
+        submission_id, item_id = existing
+        request(
+            "PATCH",
+            f"/reviewSubmissionItems/{item_id}",
+            json={
+                "data": {
+                    "type": "reviewSubmissionItems",
+                    "id": item_id,
+                    "attributes": {"resolved": True},
+                }
+            },
+        )
+        return submit_review_submission(submission_id)
+
     submission = request(
         "POST",
         "/reviewSubmissions",
@@ -83,6 +99,22 @@ def submit(version_id):
             }
         },
     )
+    return submit_review_submission(submission_id)
+
+
+def find_unresolved_submission(app_id):
+    data = request(
+        "GET",
+        f"/apps/{app_id}/reviewSubmissions?filter[platform]=IOS&filter[state]=UNRESOLVED_ISSUES&include=items&limit=10",
+    )
+    for submission in data.get("data", []):
+        item_refs = submission.get("relationships", {}).get("items", {}).get("data", [])
+        if item_refs:
+            return submission["id"], item_refs[0]["id"]
+    return None
+
+
+def submit_review_submission(submission_id):
     return request(
         "PATCH",
         f"/reviewSubmissions/{submission_id}",
@@ -99,7 +131,7 @@ def submit(version_id):
 def main():
     app_id = find_app()
     version_id, state = find_version(app_id)
-    if state != "PREPARE_FOR_SUBMISSION":
+    if state not in {"PREPARE_FOR_SUBMISSION", "REJECTED"}:
         print(f"Version is already past preparation state: {state}")
         return
     result = submit(version_id)
