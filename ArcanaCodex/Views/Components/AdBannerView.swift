@@ -26,28 +26,43 @@ struct AdBannerView: View {
 private struct BannerContainer: UIViewRepresentable {
     let width: CGFloat
 
-    func makeUIView(context: Context) -> BannerView {
-        let banner = BannerView(adSize: largeAnchoredAdaptiveBanner(width: max(width, 320)))
-        banner.adUnitID = AdMobConfig.bannerUnitID
-        banner.rootViewController = UIApplication.shared.topViewController
-        banner.load(Request())
-        return banner
+    func makeCoordinator() -> Coordinator { Coordinator() }
+
+    func makeUIView(context: Context) -> UIView {
+        let container = UIView()
+        container.backgroundColor = .clear
+        return container
     }
 
-    func updateUIView(_ banner: BannerView, context: Context) {
-        banner.adSize = largeAnchoredAdaptiveBanner(width: max(width, 320))
-        banner.rootViewController = UIApplication.shared.topViewController
+    func updateUIView(_ uiView: UIView, context: Context) {
+        guard !context.coordinator.didLoad else { return }
+        guard let rootVC = UIApplication.shared.arcanaRootViewController else { return }
+
+        let banner = BannerView(adSize: largeAnchoredAdaptiveBanner(width: max(width, 320)))
+        banner.adUnitID = AdMobConfig.bannerUnitID
+        banner.rootViewController = rootVC
+        banner.translatesAutoresizingMaskIntoConstraints = false
+        uiView.addSubview(banner)
+        NSLayoutConstraint.activate([
+            banner.centerXAnchor.constraint(equalTo: uiView.centerXAnchor),
+            banner.centerYAnchor.constraint(equalTo: uiView.centerYAnchor)
+        ])
+        banner.load(Request())
+        context.coordinator.didLoad = true
+    }
+
+    final class Coordinator {
+        var didLoad = false
     }
 }
 
 private extension UIApplication {
-    var topViewController: UIViewController? {
+    var arcanaRootViewController: UIViewController? {
         connectedScenes
             .compactMap { $0 as? UIWindowScene }
-            .flatMap(\.windows)
-            .first { $0.isKeyWindow }?
-            .rootViewController?
-            .topMostViewController
+            .first(where: { $0.activationState == .foregroundActive })?
+            .keyWindow?
+            .rootViewController
     }
 }
 
