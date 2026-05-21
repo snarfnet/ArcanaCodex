@@ -1,0 +1,7 @@
+{
+  "tool_name": "WebFetch",
+  "tool_input_preview": "{\"url\":\"https://app.rakuten.co.jp/services/api/BooksMagazine/Search/20170404?format=json&applicationId=4f1c5ecd-cbbd-41d0-bb92-5cd8bc5aedb7&sort=-releaseDate&hits=3\",\"prompt\":\"Show me the full JSON re...",
+  "error": "Request failed with status code 400",
+  "timestamp": "2026-05-20T06:01:51.493Z",
+  "retry_count": 1
+}

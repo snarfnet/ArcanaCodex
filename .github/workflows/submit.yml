@@ -46,12 +46,6 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "${{ secrets.KEYCHAIN_PASSWORD }}" "$KEYCHAIN_PATH"
           security list-keychains -d user -s "$KEYCHAIN_PATH" login.keychain-db
 
-      - name: Resolve packages
-        run: |
-          xcodebuild -resolvePackageDependencies \
-            -project ArcanaCodex.xcodeproj \
-            -scheme ArcanaCodex
-
       - name: Archive
         run: |
           xcodebuild archive \
