@@ -27,7 +27,7 @@ jobs:
       - name: Prepare App Store Connect API key
         run: |
           mkdir -p "$RUNNER_TEMP/private_keys"
-          printf '%s' '${{ secrets.ASC_API_KEY_BASE64 }}' | base64 --decode > "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8"
+          printf '%s' '${{ secrets.ASC_API_KEY_CONTENT }}' | base64 --decode > "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8"
           chmod 600 "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8"
 
       - name: Setup signing certificate
