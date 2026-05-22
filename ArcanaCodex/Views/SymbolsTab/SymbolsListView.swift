@@ -54,9 +54,13 @@ struct SymbolRow: View {
                     Text(symbol.nameJa)
                         .font(.headline)
                         .foregroundStyle(Color(hex: AppDesign.textPrimary))
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.8)
                     Text(symbol.nameEn)
                         .font(.subheadline)
                         .foregroundStyle(Color(hex: AppDesign.textSecondary))
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.8)
 
                     HStack(spacing: 6) {
                         if let hebrew = symbol.hebrewLetter {
@@ -146,9 +150,11 @@ struct SymbolDetailView: View {
                 Text(symbol.nameJa)
                     .font(.largeTitle.weight(.bold))
                     .foregroundStyle(Color(hex: AppDesign.textPrimary))
+                    .minimumScaleFactor(0.7)
                 Text("\(symbol.number) — \(symbol.nameEn)")
                     .font(.title3)
                     .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
+                    .minimumScaleFactor(0.8)
             }
             .frame(maxWidth: .infinity)
         }
@@ -187,6 +193,8 @@ struct SymbolDetailView: View {
             Text(value)
                 .font(.subheadline.bold())
                 .foregroundStyle(Color(hex: AppDesign.textPrimary))
+                .lineLimit(2)
+                .minimumScaleFactor(0.75)
         }
         .padding(8)
         .frame(maxWidth: .infinity, alignment: .leading)

@@ -62,10 +62,14 @@ struct AstrologyView: View {
                                 Text("\(arcana.number). \(arcana.nameJa)")
                                     .font(.subheadline)
                                     .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
+                                    .lineLimit(2)
+                                    .minimumScaleFactor(0.8)
                             }
                             Text(arcana.nameEn)
                                 .font(.caption)
                                 .foregroundStyle(Color(hex: AppDesign.textSecondary))
+                                .lineLimit(2)
+                                .minimumScaleFactor(0.8)
                         }
                     }
 
@@ -105,9 +109,13 @@ struct AstrologyView: View {
                             Text("\(arcana.number). \(arcana.nameJa)")
                                 .font(.subheadline)
                                 .foregroundStyle(Color(hex: AppDesign.antiqueGoldLight))
+                                .lineLimit(2)
+                                .minimumScaleFactor(0.8)
                             Text(arcana.nameEn)
                                 .font(.caption)
                                 .foregroundStyle(Color(hex: AppDesign.textSecondary))
+                                .lineLimit(2)
+                                .minimumScaleFactor(0.8)
                             Spacer()
                             if let hebrew = arcana.hebrewLetter {
                                 HebrewBadge(letter: hebrew)

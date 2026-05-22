@@ -20,7 +20,7 @@ struct TreeOfLifeView: View {
 
                         // Interactive Tree
                         treeCanvas
-                            .frame(height: 500)
+                            .frame(minHeight: 400, maxHeight: 600)
                             .padding()
 
                         // Path list
@@ -113,6 +113,8 @@ struct TreeOfLifeView: View {
                     Text("\(symbol.nameJa) — \(symbol.nameEn)")
                         .font(.subheadline.bold())
                         .foregroundStyle(Color(hex: AppDesign.textPrimary))
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.8)
                     HStack(spacing: 4) {
                         Text(path)
                             .font(.caption)

@@ -19,6 +19,7 @@ struct ElementsView: View {
                     }
                     .pickerStyle(.segmented)
                     .padding()
+                    .minimumScaleFactor(0.7)
 
                     ChapterBanner(
                         title: selectedSuit.element,
@@ -67,6 +68,8 @@ struct ElementsView: View {
                         Text("数秘: \(meaning)")
                             .font(.caption2)
                             .foregroundStyle(Color(hex: AppDesign.goldLight))
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.8)
                     }
                 }
 

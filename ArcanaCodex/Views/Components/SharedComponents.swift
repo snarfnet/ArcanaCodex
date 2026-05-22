@@ -124,7 +124,7 @@ struct MasterHero: View {
             Image("codex-atelier")
                 .resizable()
                 .scaledToFill()
-                .frame(height: 250)
+                .frame(maxHeight: 300)
                 .clipped()
 
             LinearGradient(
@@ -149,10 +149,12 @@ struct MasterHero: View {
                     .font(.subheadline)
                     .foregroundStyle(Color(hex: AppDesign.textSecondary))
                     .lineSpacing(3)
+                    .lineLimit(3)
+                    .minimumScaleFactor(0.75)
             }
             .padding(18)
         }
-        .frame(height: 250)
+        .frame(minHeight: 220, maxHeight: 300)
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .overlay(
             RoundedRectangle(cornerRadius: 8)
@@ -184,10 +186,12 @@ struct ChapterBanner: View {
                     Label(title, systemImage: icon)
                         .font(.headline.weight(.semibold))
                         .foregroundStyle(Color(hex: AppDesign.textPrimary))
+                        .minimumScaleFactor(0.8)
                     Text(subtitle)
                         .font(.caption)
                         .foregroundStyle(Color(hex: AppDesign.textSecondary))
-                        .lineLimit(2)
+                        .lineLimit(3)
+                        .minimumScaleFactor(0.75)
                 }
 
                 Spacer(minLength: 0)

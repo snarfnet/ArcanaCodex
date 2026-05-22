@@ -67,9 +67,13 @@ struct ScholarsView: View {
                         Text("\(symbol.number). \(symbol.nameJa)")
                             .font(.headline)
                             .foregroundStyle(Color(hex: AppDesign.textPrimary))
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.8)
                         Text(symbol.nameEn)
                             .font(.caption)
                             .foregroundStyle(Color(hex: AppDesign.textSecondary))
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.8)
                     }
                     Spacer()
                     if let hebrew = symbol.hebrewLetter {
