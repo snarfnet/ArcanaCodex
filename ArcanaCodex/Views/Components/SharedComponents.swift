@@ -18,6 +18,7 @@ struct CosmicCard<Content: View>: View {
                         .scaledToFill()
                         .opacity(0.055)
                 }
+                .clipped()
             }
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .overlay(
@@ -78,13 +79,17 @@ struct CosmicBackground: View {
             AppDesign.cosmicBackground
                 .ignoresSafeArea()
 
-            Image("codex-atelier")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-                .opacity(0.28)
-                .overlay(Color(hex: AppDesign.ink).opacity(0.56))
-                .blur(radius: 1.2)
+            GeometryReader { geo in
+                Image("codex-atelier")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .clipped()
+                    .opacity(0.28)
+                    .overlay(Color(hex: AppDesign.ink).opacity(0.56))
+                    .blur(radius: 1.2)
+            }
+            .ignoresSafeArea()
 
             AppDesign.nebulaGradient
                 .ignoresSafeArea()
@@ -121,11 +126,13 @@ struct ManuscriptGrain: View {
 struct MasterHero: View {
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            Image("codex-atelier")
-                .resizable()
-                .scaledToFill()
-                .frame(maxHeight: 300)
-                .clipped()
+            GeometryReader { geo in
+                Image("codex-atelier")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .clipped()
+            }
 
             LinearGradient(
                 colors: [.clear, Color(hex: AppDesign.ink).opacity(0.92)],
@@ -176,6 +183,7 @@ struct ChapterBanner: View {
                     .resizable()
                     .scaledToFill()
                     .frame(width: 62, height: 62)
+                    .clipped()
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
