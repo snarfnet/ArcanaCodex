@@ -30,6 +30,27 @@ jobs:
           printf '%s' '${{ secrets.ASC_API_KEY_CONTENT }}' | base64 --decode > "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8"
           chmod 600 "$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8"
 
+      - name: Clean up old certificates
+        run: |
+          pip install pyjwt --quiet
+          python3 -c "
+          import jwt, time, requests
+          KEY_ID = '${ASC_KEY_ID}'
+          ISSUER_ID = '${ASC_ISSUER_ID}'
+          with open('$RUNNER_TEMP/private_keys/AuthKey_${ASC_KEY_ID}.p8') as f:
+              key = f.read()
+          token = jwt.encode({'iss': ISSUER_ID, 'iat': int(time.time()), 'exp': int(time.time()) + 600, 'aud': 'appstoreconnect-v1'}, key, algorithm='ES256', headers={'kid': KEY_ID})
+          headers = {'Authorization': f'Bearer {token}'}
+          r = requests.get('https://api.appstoreconnect.apple.com/v1/certificates?limit=200&filter[certificateType]=DEVELOPMENT', headers=headers)
+          certs = r.json().get('data', [])
+          if len(certs) > 5:
+              for c in sorted(certs, key=lambda x: x['attributes'].get('expirationDate',''))[:-2]:
+                  requests.delete(f'https://api.appstoreconnect.apple.com/v1/certificates/{c[\"id\"]}', headers=headers)
+              print(f'Cleaned {len(certs)-2} old certificates')
+          else:
+              print(f'{len(certs)} certificates, no cleanup needed')
+          "
+
       - name: Archive
         run: |
           xcodebuild archive \
